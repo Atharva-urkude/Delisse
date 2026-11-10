@@ -1,0 +1,591 @@
+<!doctype html>
+<html lang="en" data-theme="day">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#FAF4EB">
+  <meta name="description" content="Discover Délisse Tiramisu: lovingly layered Italian-inspired desserts, freshly made in Pune for everyday treats and special gatherings.">
+  <title>Délisse Tiramisu — Un Capolavoro Italiano</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      color-scheme: light;
+      --page: #F7F1E8;
+      --surface: #F9F4EC;
+      --surface-soft: #F3E9DC;
+      --ink: #33180C;
+      --ink-soft: #624C3D;
+      --cocoa: #482515;
+      --tan: #C8AD90;
+      --line: rgba(72, 37, 21, .16);
+      --shadow: 0 1.5rem 4rem rgba(51, 24, 12, .09);
+      --gingham-white: #F7F1E8;
+      --gingham-red: #B4232D;
+      --gingham-pattern: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='36' height='36' viewBox='0 0 36 36'%3E%3Cpath fill='%23F7F1E8' d='M0 0h36v36H0z'/%3E%3Cpath fill='%23B4232D' d='M0 0h18v18H0zm18 18h18v18H18z'/%3E%3C/svg%3E");
+      --content: 74rem;
+      --header-height: 4.5rem;
+      --frame-width: 3.25rem;
+    }
+
+    html[data-theme="night"] {
+      color-scheme: dark;
+      --page: #1D130F;
+      --surface: #291C16;
+      --surface-soft: #35251C;
+      --ink: #FFF7ED;
+      --ink-soft: #D7C2AE;
+      --cocoa: #F2DFCA;
+      --tan: #B08D6B;
+      --line: rgba(255, 247, 237, .15);
+      --shadow: 0 1.5rem 4rem rgba(0, 0, 0, .24);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: calc(var(--header-height) + 1.5rem); }
+    body {
+      margin: 0;
+      padding-inline: var(--frame-width);
+      background: var(--page);
+      color: var(--ink);
+      font: 400 1rem/1.65 "DM Sans", sans-serif;
+      transition: background-color .35s ease, color .35s ease;
+      overflow-x: hidden;
+    }
+    img { display: block; max-width: 100%; }
+    button, a, select { font: inherit; }
+    a { color: inherit; }
+    button { color: inherit; }
+    :focus-visible { outline: 3px solid #B54635; outline-offset: 3px; }
+    ::selection { color: #fff; background: #8C3028; }
+    .container { width: min(var(--content), calc(100% - 3rem)); margin-inline: auto; }
+    .eyebrow {
+      margin: 0 0 .8rem;
+      color: var(--ink-soft);
+      font-size: .73rem;
+      font-weight: 700;
+      letter-spacing: .19em;
+      line-height: 1.4;
+      text-transform: uppercase;
+    }
+    h1, h2, h3, p { margin-top: 0; }
+    h1, h2, h3, .wordmark { font-family: "Playfair Display", Georgia, serif; }
+    h2 { margin-bottom: 1rem; font-size: clamp(2.2rem, 5vw, 3.65rem); font-weight: 400; line-height: 1.12; letter-spacing: -.035em; }
+    .section-intro { max-width: 40rem; margin: 0 auto 3rem; text-align: center; }
+    .section-intro p:last-child { color: var(--ink-soft); }
+    .skip-link {
+      position: fixed; z-index: 999; top: .75rem; left: .75rem; transform: translateY(-160%);
+      padding: .8rem 1rem; border-radius: .5rem; background: var(--surface); color: var(--ink);
+    }
+    .skip-link:focus { transform: translateY(0); }
+    .sr-only {
+      position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+      overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
+    }
+
+    .page-loader {
+      position: fixed; z-index: 1000; inset: 0; display: grid; place-items: center;
+      padding: 1.5rem; background: color-mix(in srgb, var(--page) 94%, transparent);
+      backdrop-filter: blur(8px); opacity: 1; visibility: visible;
+      transition: opacity .5s ease, visibility .5s ease;
+    }
+    .page-loader.is-hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+    .loader-content {
+      width: min(20rem, 100%); display: grid; justify-items: center; gap: 1rem;
+      padding: 2rem 1.5rem 1.5rem; border: 1px solid var(--line); border-radius: .75rem;
+      background: var(--surface); box-shadow: var(--shadow); text-align: center;
+    }
+    .loader-seal { position: relative; width: 5rem; aspect-ratio: 1; padding: .25rem; border-radius: 50%; background: conic-gradient(from 0deg, var(--gingham-red), #fff 25%, var(--gingham-red) 50%, #fff 75%, var(--gingham-red)); animation: loader-spin 2.4s linear infinite; }
+    .loader-seal img { width: 100%; height: 100%; border: 3px solid var(--surface); border-radius: 50%; object-fit: cover; animation: loader-counter-spin 2.4s linear infinite; }
+    .loader-track { width: 9rem; height: .55rem; overflow: hidden; border-radius: 999px; background: var(--surface-soft); }
+    .loader-track::after { display: block; width: 42%; height: 100%; content: ""; border-radius: inherit; background-color: var(--gingham-white); background-image: var(--gingham-pattern); background-size: 1.125rem 1.125rem; animation: loader-progress 1.25s ease-in-out infinite; }
+    .loader-caption { margin: 0; color: var(--ink); font-family: "Playfair Display", Georgia, serif; font-size: 1.15rem; }
+    .loader-subcaption { margin: -.7rem 0 0; color: var(--ink-soft); font-size: .67rem; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; }
+    @keyframes loader-spin { to { transform: rotate(1turn); } }
+    @keyframes loader-counter-spin { to { transform: rotate(-1turn); } }
+    @keyframes loader-progress { from { transform: translateX(-120%); } to { transform: translateX(260%); } }
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity .8s ease, transform .8s cubic-bezier(.2,.7,.2,1); }
+    .reveal.is-visible { opacity: 1; transform: translateY(0); }
+    .story-photo.reveal { transform: translateY(24px) rotate(-1.5deg); }
+    .story-photo.reveal.is-visible { transform: translateY(0) rotate(0); }
+    .chapter, .craft-card, .contact-card, .gallery-item { transition: transform .35s cubic-bezier(.2,.7,.2,1), box-shadow .35s ease; }
+    .chapter:hover, .craft-card:hover, .contact-card:hover { transform: translateY(-5px); }
+    .gallery-item:hover { transform: translateY(-4px); box-shadow: var(--shadow); }
+
+    .site-header {
+      position: sticky;
+      z-index: 20;
+      top: 0;
+      border-bottom: 1px solid var(--line);
+      background: color-mix(in srgb, var(--page) 92%, transparent);
+      backdrop-filter: blur(16px);
+    }
+    .nav-wrap {
+      width: 100%;
+      min-height: var(--header-height);
+      margin: auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.5rem;
+    }
+    .brand {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      gap: .75rem;
+      min-height: 48px;
+      min-width: max-content;
+      padding-left: 5rem;
+      text-decoration: none;
+    }
+    .site-header .brand-seal {
+      position: absolute;
+      top: 50%;
+      left: 0;
+      z-index: 1;
+      width: 4.6rem;
+      aspect-ratio: 1;
+      overflow: hidden;
+      flex: 0 0 auto;
+      border: 2px solid var(--tan);
+      border-radius: 50%;
+      background: var(--surface);
+      box-shadow: 0 .2rem .8rem rgba(51,24,12,.13);
+      transform: translateY(-50%);
+    }
+    .brand-seal img { width: 100%; height: 100%; object-fit: cover; }
+    .brand-copy { display: grid; line-height: 1.12; }
+    .wordmark { font-size: 1.45rem; font-weight: 600; letter-spacing: .01em; }
+    .brand-line { margin-top: .18rem; color: var(--ink-soft); font-size: .63rem; letter-spacing: .13em; text-transform: uppercase; }
+    .nav-links { display: flex; align-items: center; gap: clamp(.85rem, 2vw, 1.7rem); }
+    .nav-links a {
+      min-height: 48px;
+      display: inline-flex;
+      align-items: center;
+      position: relative;
+      color: var(--ink-soft);
+      font-size: .82rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: color .2s ease;
+    }
+    .nav-links a:hover { color: var(--ink); }
+    .nav-actions { display: flex; align-items: center; gap: .55rem; }
+    .icon-button, .menu-toggle {
+      min-width: 48px; min-height: 48px;
+      display: inline-flex; align-items: center; justify-content: center;
+      border: 1px solid var(--line); border-radius: .25rem;
+      background: var(--surface); color: var(--ink); cursor: pointer;
+      transition: transform .2s ease, box-shadow .2s ease, background .25s ease;
+    }
+    .icon-button:hover, .menu-toggle:hover { transform: translateY(-2px); box-shadow: 0 .5rem 1rem rgba(51,24,12,.12); }
+    .icon-button { padding: 0 .95rem; gap: .45rem; font-size: .76rem; font-weight: 700; }
+    .menu-toggle { display: none; font-size: 1.25rem; }
+    .menu-cta { min-height: 48px; padding-inline: 1rem; font-size: .78rem; }
+
+    .hero {
+      width: calc(100% + 2 * var(--frame-width));
+      margin-left: calc(-1 * var(--frame-width));
+      padding: 0 0 clamp(4rem, 8vw, 6rem);
+      background: var(--page);
+    }
+    .hero-inner { width: min(50rem, calc(100% - 2rem)); margin-inline: auto; text-align: center; }
+    .hero-ribbon {
+      position: fixed;
+      z-index: 19;
+      inset-block: 0;
+      width: var(--frame-width);
+      background-color: var(--gingham-white);
+      background-image: var(--gingham-pattern);
+      background-size: 36px 36px;
+      background-position: 0 0;
+      transition: background-position .16s linear;
+      will-change: background-position;
+      pointer-events: none;
+    }
+    .hero-ribbon-left { left: 0; }
+    .hero-ribbon-right { right: 0; animation-direction: reverse; }
+    .hero-video-frame {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      max-height: min(68svh, 42rem);
+      margin: 0 auto clamp(2.5rem, 5vw, 4rem);
+      overflow: hidden;
+      background: #21160f;
+    }
+    .hero-video-frame video { width: 100%; height: 100%; object-fit: cover; }
+    .hero h1 { margin: 0 auto 1.1rem; color: var(--ink); font-size: clamp(3rem, 8vw, 6.4rem); font-weight: 400; line-height: .99; letter-spacing: -.055em; }
+    .hero h1 em { color: var(--ink-soft); font-weight: 400; }
+    .hero-lede { max-width: 38rem; margin: 0 auto 2rem; color: var(--ink-soft); font-size: clamp(1rem, 2vw, 1.16rem); }
+    .hero-kicker { margin-bottom: .85rem; color: var(--ink-soft); font-size: .75rem; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; }
+    .hero-note { margin: 1.3rem 0 0; color: var(--ink-soft); font-size: .8rem; }
+    .button {
+      min-height: 3rem; display: inline-flex; align-items: center; justify-content: center; gap: .65rem;
+      padding: .65rem 1.25rem;       border: 1px solid var(--cocoa); border-radius: .25rem;
+      background: var(--cocoa); color: var(--page); cursor: pointer;
+      font-size: .84rem; font-weight: 700; text-decoration: none;
+      transition: transform .2s ease, box-shadow .2s ease, background .25s ease, color .25s ease;
+    }
+    .button:hover { transform: translateY(-2px); box-shadow: 0 .55rem 1.1rem rgba(51,24,12,.19); }
+    .button-outline { background: transparent; color: var(--ink); }
+    .menu-explore { min-height: 3.5rem; gap: .8rem; padding-inline: 1.5rem; }
+    .menu-explore .menu-arrow { display: inline-block; font-size: 1.1rem; animation: explore-arrow 1.8s ease-in-out infinite; }
+    .menu-explore:hover .menu-arrow { animation-play-state: paused; transform: translateX(4px); }
+    @keyframes explore-arrow { 50% { transform: translateX(4px); } }
+
+    .story { padding-block: clamp(4.5rem, 9vw, 8rem); }
+    .story-grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(2rem, 7vw, 6rem); align-items: center; }
+    .story-photo { position: relative; }
+    .story-photo::after { content: none; }
+    .story-photo img { width: 100%; aspect-ratio: 4 / 4.5; object-fit: cover; border-radius: 1rem; box-shadow: 0 .75rem 2rem rgba(51, 24, 12, .08); transition: transform .7s cubic-bezier(.2,.7,.2,1); }
+    .story-photo:hover img { transform: scale(1.025); }
+    .story-copy h2 { max-width: 34rem; }
+    .story-copy p:not(.eyebrow) { color: var(--ink-soft); }
+    .story-copy .signature { margin-top: 1.6rem; color: var(--ink); font-family: "Playfair Display", Georgia, serif; font-size: 1.4rem; font-style: italic; }
+    .chapter-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; margin-top: 4rem; padding-top: 2rem; border-top: 1px solid var(--line); }
+    .chapter { padding-right: 1rem; }
+    .chapter-number { display: block; margin-bottom: .6rem; color: var(--tan); font-family: "Playfair Display", Georgia, serif; font-size: 1.6rem; }
+    .chapter h3 { margin-bottom: .35rem; font-size: 1.2rem; font-weight: 500; }
+    .chapter p { margin-bottom: 0; color: var(--ink-soft); font-size: .87rem; }
+
+    .gallery-section { padding-block: clamp(4.5rem, 8vw, 7rem); }
+    .gallery-grid { display: grid; grid-template-columns: 1.15fr .85fr .85fr; grid-template-rows: 14rem 14rem; gap: .85rem; }
+    .gallery-item { position: relative; overflow: hidden; border-radius: .85rem; background: var(--surface-soft); }
+    .gallery-item:first-child { grid-row: span 2; }
+    .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform .6s ease; }
+    .gallery-item:hover img { transform: scale(1.04); }
+    .gallery-caption {
+      position: absolute; right: .75rem; bottom: .75rem; left: .75rem;
+      width: fit-content; max-width: calc(100% - 1.5rem); padding: .45rem .75rem;
+      border-radius: .25rem; background: rgba(255,253,249,.96); color: #33180C;
+      font-size: .73rem; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+
+    .craft-section { padding-block: clamp(4rem, 7vw, 6rem); background: var(--surface-soft); }
+    .craft-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.2rem; }
+    .craft-card { padding: 1.5rem; border-top: 1px solid var(--tan); }
+    .craft-icon { width: 2.75rem; height: 2.75rem; display: grid; place-items: center; margin-bottom: 1rem; border: 1px solid var(--line); border-radius: 50%; color: var(--ink); font-size: 1.1rem; }
+    .craft-card h3 { margin-bottom: .45rem; font-size: 1.4rem; font-weight: 500; }
+    .craft-card p { margin-bottom: 0; color: var(--ink-soft); font-size: .88rem; }
+
+    .reviews-section { padding-block: clamp(4.5rem, 8vw, 7rem); }
+    .review-panel {
+      max-width: 52rem; margin: auto; padding: clamp(1.5rem, 4vw, 3rem);
+      border: 1px solid var(--line); border-radius: 1.25rem; background: var(--surface);
+      box-shadow: var(--shadow); text-align: center;
+    }
+    .review-note { margin-bottom: .75rem; color: var(--ink-soft); font-size: .73rem; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; }
+    .review-panel p { max-width: 40rem; margin: 0 auto 1.2rem; color: var(--ink-soft); }
+    .customer-form { display: grid; gap: .85rem; margin-top: 1.4rem; text-align: left; }
+    .customer-form label { display: grid; gap: .35rem; color: var(--ink); font-size: .78rem; font-weight: 700; }
+    .customer-form input, .customer-form textarea {
+      width: 100%; min-height: 48px; padding: .75rem .85rem;
+      border: 1px solid var(--line); border-radius: .65rem;
+      background: var(--surface); color: var(--ink); font: inherit; font-size: .88rem;
+    }
+    .customer-form textarea { min-height: 5rem; resize: vertical; }
+    .customer-form .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: .75rem; }
+
+    .contact-section { padding-block: clamp(4.5rem, 8vw, 7rem); background: var(--surface-soft); }
+    .contact-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+    .contact-card { min-width: 0; padding: 1.4rem; border: 1px solid var(--line); border-radius: 1rem; background: var(--surface); }
+    .contact-card h3 { margin-bottom: .4rem; font-size: 1.3rem; font-weight: 500; }
+    .contact-card p, .contact-card a { color: var(--ink-soft); font-size: .88rem; overflow-wrap: anywhere; }
+    .contact-card a { min-height: 48px; display: inline-flex; align-items: center; }
+    .contact-card a:hover { color: var(--ink); }
+    .delivery-note { margin: 1.25rem auto 0; color: var(--ink-soft); font-size: .82rem; text-align: center; }
+
+    .site-footer { padding-block: 3rem 1.25rem; background: var(--surface); }
+    .footer-main { display: grid; grid-template-columns: 1.3fr 1fr 1fr; gap: 2rem; align-items: start; }
+    .footer-brand { display: flex; align-items: center; gap: .9rem; margin-bottom: .8rem; }
+    .footer-seal { width: 4.2rem; }
+    .footer-summary { max-width: 22rem; color: var(--ink-soft); font-size: .85rem; }
+    .footer-col h3 { margin: .2rem 0 .75rem; font-family: "DM Sans", sans-serif; font-size: .77rem; font-weight: 700; letter-spacing: .13em; text-transform: uppercase; }
+    .footer-links { display: grid; gap: .35rem; }
+    .footer-links a { min-height: 48px; display: inline-flex; align-items: center; color: var(--ink-soft); font-size: .85rem; text-decoration: none; }
+    .footer-links a:hover { color: var(--ink); }
+    .footer-bottom { margin-top: 2rem; padding-top: 1rem; border-top: 1px solid var(--line); color: var(--ink-soft); font-size: .75rem; text-align: center; }
+
+    .mobile-nav {
+      position: fixed; z-index: 22; inset: var(--header-height) 0 auto; display: none;
+      padding: .5rem 1.25rem 1rem; border-bottom: 1px solid var(--line);
+      background: var(--page); box-shadow: var(--shadow);
+    }
+    .mobile-nav.open { display: grid; }
+    .mobile-nav a { min-height: 48px; display: flex; align-items: center; border-bottom: 1px solid var(--line); color: var(--ink-soft); text-decoration: none; }
+    .mobile-nav a:last-child { border-bottom: 0; }
+
+    @media (max-width: 1050px) {
+      .nav-links { gap: .8rem; }
+      .nav-links a { font-size: .76rem; }
+    }
+    @media (max-width: 790px) {
+      :root { --header-height: 3.75rem; }
+      :root { --frame-width: 2rem; }
+      .nav-links { display: none; }
+      .menu-toggle { display: inline-flex; }
+      .nav-wrap { gap: .5rem; }
+      .site-header .brand { padding-left: 4.2rem; }
+      .site-header .brand-seal { width: 3.9rem; }
+      .wordmark { font-size: 1.25rem; }
+      .icon-button { width: 48px; padding: 0; font-size: 1rem; }
+      .icon-button .theme-label { display: none; }
+      .story-grid { grid-template-columns: 1fr; }
+      .story-photo { max-width: 34rem; margin-inline: auto; }
+      .story-photo img { width: 100%; margin-left: 0; aspect-ratio: 4 / 3.6; }
+      .chapter-row { margin-top: 2.5rem; }
+      .gallery-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: 15rem 12rem; }
+      .gallery-item:first-child { grid-row: auto; grid-column: span 2; }
+      .gallery-item:last-child { grid-column: span 2; }
+      .footer-main { grid-template-columns: 1fr 1fr; }
+      .footer-main > :first-child { grid-column: span 2; }
+    }
+    @media (max-width: 540px) {
+      .container { width: calc(100% - 2rem); }
+      .brand-line { font-size: .56rem; }
+      .nav-actions { gap: .35rem; }
+      .menu-cta { padding-inline: .7rem; font-size: .72rem; }
+      .hero-inner { width: calc(100% - 2rem); }
+      .hero h1 { font-size: clamp(2.8rem, 14vw, 4.3rem); }
+      .chapter-row, .craft-grid, .contact-grid { grid-template-columns: 1fr; }
+      .chapter { padding: 0 0 1rem; border-bottom: 1px solid var(--line); }
+      .gallery-grid { grid-template-columns: minmax(0, 1fr); grid-template-rows: none; grid-auto-rows: 14rem; gap: .75rem; }
+      .gallery-item:first-child, .gallery-item:last-child { grid-column: auto; }
+      .gallery-caption { right: .45rem; bottom: .45rem; left: .45rem; max-width: calc(100% - .9rem); padding: .4rem .55rem; font-size: .68rem; }
+      .footer-main { grid-template-columns: 1fr; }
+      .footer-main > :first-child { grid-column: auto; }
+    }
+    @media (max-width: 390px) {
+      .menu-cta { display: none; }
+    }
+    @media (max-width: 430px) {
+      .site-header .brand-copy { display: none; }
+    }
+    @media (max-width: 360px) {
+      .brand-copy { display: none; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+    }
+  </style>
+  <link rel="stylesheet" href="./premium.css">
+  <link rel="stylesheet" href="./studio.css">
+</head>
+<body>
+  <noscript><style>.page-loader{display:none!important}.reveal{opacity:1!important;transform:none!important}</style></noscript>
+  <div class="page-loader" id="page-loader" role="status" aria-label="Loading Délisse Tiramisu">
+    <div class="loader-content"><span class="loader-seal"><img src="./logo.jpg" alt="" width="1024" height="1024"></span><span class="loader-caption">A little sweetness</span><span class="loader-subcaption">Fresh from our kitchen</span><span class="loader-track" aria-hidden="true"></span></div>
+  </div>
+  <span class="hero-ribbon hero-ribbon-left" aria-hidden="true"></span>
+  <span class="hero-ribbon hero-ribbon-right" aria-hidden="true"></span>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <div class="nav-wrap container">
+      <a class="brand" href="#home" aria-label="Délisse Tiramisu home">
+        <span class="brand-seal"><img src="./logo.jpg" alt="Délisse circular lid emblem" width="1024" height="1024"></span>
+        <span class="brand-copy"><span class="wordmark">Délisse</span><span class="brand-line">Tiramisu · Pune</span></span>
+      </a>
+      <nav class="nav-links" aria-label="Main navigation">
+        <a href="#story">Story</a><a href="./menu.html">Menu</a><a href="#gallery">Gallery</a><a href="#craft">About</a><a href="#reviews">Reviews</a><a href="#contact">Contact</a>
+      </nav>
+      <div class="nav-actions">
+        <button class="icon-button" id="theme-toggle" type="button" aria-label="Switch to night mode" aria-pressed="false"><span aria-hidden="true">☾</span><span class="theme-label">Night</span></button>
+        <a class="button menu-cta" href="./menu.html">View menu</a>
+        <button class="menu-toggle" id="menu-toggle" type="button" aria-label="Open navigation menu" aria-expanded="false" aria-controls="mobile-nav">☰</button>
+      </div>
+    </div>
+    <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile navigation">
+      <a href="#story">Our story</a><a href="./menu.html">Menu</a><a href="#gallery">Gallery</a><a href="#craft">About our craft</a><a href="#reviews">Reviews</a><a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section class="hero" id="home" aria-labelledby="hero-title">
+      <div class="hero-video-frame">
+        <video class="hero-video" width="1280" height="720" autoplay muted playsinline loop preload="auto" aria-label="Délisse Tiramisu brand video">
+          <source src="./Create_product_hero_animation_743e8b27_1080p.mp4" type="video/mp4">
+          Your browser does not support HTML video.
+        </video>
+      </div>
+      <div class="hero-inner">
+        <p class="hero-kicker">Un Capolavoro Italiano</p>
+        <h1 id="hero-title">A little Italian<br><em>dolce vita.</em></h1>
+        
+        <p class="hero-lede">Layers of coffee-kissed comfort, made with care in Pune. A thoughtful treat for the everyday—and every table worth gathering around.</p>
+        <a class="button menu-explore" href="./menu.html"><span>Explore the menu</span><span class="menu-arrow" aria-hidden="true">→</span></a>
+        <p class="hero-note">Small-batch tiramisu, prepared fresh for your order.</p>
+        
+      </div>
+      
+      <div class="hero-scroll"><a href="#story">SCROLL TO EXPLORE ↓</a><span>HANDCRAFTED IN PUNE</span></div>
+    </section>
+
+    <section class="story" id="story" aria-labelledby="story-title">
+      <div class="container">
+        <div class="story-grid">
+          <div class="story-photo"><img src="./about image.jpg" alt="Délisse tiramisu with cocoa and espresso, presented in a warm Italian-inspired setting" loading="lazy" width="1024" height="682"></div>
+          <div class="story-copy">
+            <p class="eyebrow">Our story · A kitchen in Pune</p>
+            <h2 id="story-title">Some traditions are best shared by the spoonful.</h2>
+            <p>Délisse began with a love for the gentle contrast at the heart of tiramisu: coffee-soaked biscuits, soft mascarpone cream, and a final veil of cocoa. We bring that Italian favourite to Pune, making each order with patience and a little everyday joy.</p>
+            <p>From a small tasting cup to a box for the whole table, every format is made to make sharing feel special. Choose your size, gather your people, and leave room for one more spoonful.</p>
+            <p class="signature">Made with care, from our kitchen to yours.</p>
+          </div>
+        </div>
+        <div class="chapter-row" aria-label="Our process">
+          <article class="chapter"><span class="chapter-number">01</span><h3>Good things take time</h3><p>We build each dessert in delicate layers, giving cream and coffee their moment.</p></article>
+          <article class="chapter"><span class="chapter-number">02</span><h3>Made for your moment</h3><p>Choose an individual portion, a family-sized treat, or a box for a celebration.</p></article>
+          <article class="chapter"><span class="chapter-number">03</span><h3>Finished with care</h3><p>A cocoa-dusted classic, prepared fresh and ready to be passed around the table.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="gallery-section" id="gallery" aria-labelledby="gallery-title">
+      <div class="container">
+        <div class="section-intro">
+          <p class="eyebrow">A closer look</p>
+          <h2 id="gallery-title">Made to be admired.<br>Even better by the spoonful.</h2>
+          <p>A few little moments from the Délisse table.</p>
+        </div>
+        <div class="gallery-grid">
+          <figure class="gallery-item"><img src="./classic cup.jpg" alt="Tiramisu served in an Italian-inspired setting" loading="lazy" width="1024" height="682"><figcaption class="gallery-caption">A little dolce vita</figcaption></figure>
+          <figure class="gallery-item"><img src="./classic cup.jpg" alt="Individual classic tiramisu cup with cocoa" loading="lazy" width="1024" height="682"><figcaption class="gallery-caption">The classic cup</figcaption></figure>
+          <figure class="gallery-item"><img src="./celebration box.jpg" alt="Délisse celebration box, ready to share" loading="lazy" width="1024" height="682"><figcaption class="gallery-caption">Gather around</figcaption></figure>
+          <figure class="gallery-item"><img src="./galary 1.jpg" alt="A Délisse tiramisu serving" loading="lazy" width="1024" height="682"><figcaption class="gallery-caption">A moment for dessert</figcaption></figure>
+          <figure class="gallery-item"><img src="./galary 2.jpg" alt="A close-up of Délisse dessert presentation" loading="lazy" width="1024" height="682"><figcaption class="gallery-caption">Layer by layer</figcaption></figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="craft-section" id="craft" aria-labelledby="craft-title">
+      <div class="container">
+        <div class="section-intro">
+          <p class="eyebrow">The little things matter</p>
+          <h2 id="craft-title">Thoughtful at every layer.</h2>
+          <p>Our promise is simple: make a lovely tiramisu, handle it with care, and help it arrive ready to share.</p>
+        </div>
+        <div class="craft-grid">
+          <article class="craft-card"><span class="craft-icon" aria-hidden="true">✳</span><h3>Ingredients chosen with care</h3><p>Mascarpone, coffee, Savoiardi, and cocoa are at the heart of our classic recipe. Contact us for current ingredient or allergen questions.</p></article>
+          <article class="craft-card"><span class="craft-icon" aria-hidden="true">⌂</span><h3>Made in Pune</h3><p>A local kitchen bringing a much-loved Italian dessert to celebrations and everyday tables.</p></article>
+          <article class="craft-card"><span class="craft-icon" aria-hidden="true">♡</span><h3>Fresh for your order</h3><p>We make your dessert fresh and coordinate timing and delivery details when you place an order.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="reviews-section" id="reviews" aria-labelledby="reviews-title">
+      <div class="container">
+        <div class="section-intro">
+          <p class="eyebrow">A note on reviews</p>
+          <h2 id="reviews-title">We want every word to be genuine.</h2>
+        </div>
+        <div class="review-panel">
+          <div class="review-note">A note from our kitchen</div>
+          <p>We’re gathering customer feedback before publishing testimonials here. Have tried Délisse? We’d love to hear what you thought—your words help our little kitchen grow.</p>
+          <a class="button button-outline" href="https://wa.me/919270820213?text=Hello%20D%C3%A9lisse!%20I%27d%20love%20to%20share%20feedback%20about%20my%20tiramisu%20order." target="_blank" rel="noopener noreferrer">Share feedback on WhatsApp</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="contact-section" id="contact" aria-labelledby="contact-title">
+      <div class="container">
+        <div class="section-intro">
+          <p class="eyebrow">Say ciao</p>
+          <h2 id="contact-title">Let’s make your next gathering sweeter.</h2>
+          <p>Questions, custom orders, or a celebration coming up? Get in touch and we’ll help you choose.</p>
+        </div>
+        <div class="contact-grid">
+          <article class="contact-card"><h3>Call or WhatsApp</h3><p><a href="tel:+919270820213">+91 92708 20213</a></p><p><a href="https://wa.me/919270820213" target="_blank" rel="noopener noreferrer">Message us on WhatsApp ↗</a></p></article>
+          <article class="contact-card"><h3>Email</h3><p>For custom orders and event enquiries.</p><a href="mailto:delissepune@gmail.com">delissepune@gmail.com</a></article>
+          <article class="contact-card"><h3>Ordering hours</h3><p>Monday–Saturday<br>9:00 am–8:00 pm</p><p>Handcrafted in Pune, Maharashtra.</p></article>
+        </div>
+        <p class="delivery-note">Delivery enquiries: Pune only. Please contact us to confirm availability for your area and preferred date.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-main">
+        <div>
+          <div class="footer-brand">
+            <span class="brand-seal footer-seal"><img src="./logo.jpg" alt="Délisse circular lid emblem" loading="lazy" width="1024" height="1024"></span>
+            <span class="brand-copy"><span class="wordmark">Délisse</span><span class="brand-line">Un Capolavoro Italiano</span></span>
+          </div>
+          <p class="footer-summary">Classic tiramisu, lovingly layered and made fresh in Pune. A little sweetness is always worth sharing.</p>
+        </div>
+        <div class="footer-col"><h3>Explore</h3><div class="footer-links"><a href="#story">Our story</a><a href="./menu.html">The menu</a><a href="#gallery">Gallery</a><a href="#craft">Our craft</a></div></div>
+        <div class="footer-col"><h3>Get in touch</h3><div class="footer-links"><a href="tel:+919270820213">+91 92708 20213</a><a href="mailto:delissepune@gmail.com">delissepune@gmail.com</a><a href="#contact">Pune delivery enquiries</a></div></div>
+      </div>
+      <div class="footer-bottom">© <span id="year"></span> Délisse Tiramisu. Made with care in Pune.</div>
+    </div>
+  </footer>
+
+  <script>
+    const loader = document.getElementById("page-loader");
+    const revealElements = document.querySelectorAll(".hero-inner > *, .story-photo, .story-copy, .chapter, .section-intro, .gallery-item, .craft-card, .review-panel, .contact-card, .footer-main > *");
+    revealElements.forEach((element, index) => {
+      element.classList.add("reveal");
+      element.style.transitionDelay = `${Math.min(index % 4, 3) * 90}ms`;
+    });
+
+    const observer = !("IntersectionObserver" in window) ? { observe(element) { element.classList.add("is-visible"); }, unobserve() {} } : new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add("is-visible");
+        observer.unobserve(entry.target);
+      });
+    }, { threshold: 0.12 });
+    revealElements.forEach(element => observer.observe(element));
+    const revealInView = () => {
+      revealElements.forEach(element => {
+        const bounds = element.getBoundingClientRect();
+        if (bounds.top < window.innerHeight + 80 && bounds.bottom > -80) element.classList.add("is-visible");
+      });
+    };
+    revealInView();
+    
+
+    const ribbonEdges = [...document.querySelectorAll(".hero-ribbon")];
+    const moveRibbonsWithScroll = () => {
+      const offset = window.scrollY * 0.22;
+      ribbonEdges.forEach((ribbon, index) => {
+        ribbon.style.backgroundPosition = `0 ${index === 0 ? offset : -offset}px`;
+      });
+    };
+    
+    moveRibbonsWithScroll();
+
+    document.getElementById("theme-toggle").addEventListener("click", event => {
+      const button = event.currentTarget;
+      const isNight = document.documentElement.dataset.theme !== "night";
+      document.documentElement.dataset.theme = isNight ? "night" : "day";
+      button.setAttribute("aria-pressed", String(isNight));
+      button.setAttribute("aria-label", `Switch to ${isNight ? "day" : "night"} mode`);
+      button.innerHTML = `<span aria-hidden="true">${isNight ? "☀" : "☾"}</span><span class="theme-label">${isNight ? "Day" : "Night"}</span>`;
+      document.querySelector('meta[name="theme-color"]').content = isNight ? "#1D130F" : "#FAF4EB";
+    });
+
+    const menuToggle = document.getElementById("menu-toggle");
+    const mobileNav = document.getElementById("mobile-nav");
+    menuToggle.addEventListener("click", () => {
+      const isOpen = mobileNav.classList.toggle("open");
+      menuToggle.setAttribute("aria-expanded", String(isOpen));
+      menuToggle.setAttribute("aria-label", isOpen ? "Close navigation menu" : "Open navigation menu");
+      menuToggle.textContent = isOpen ? "×" : "☰";
+    });
+    mobileNav.addEventListener("click", event => {
+      if (!event.target.closest("a")) return;
+      mobileNav.classList.remove("open");
+      menuToggle.setAttribute("aria-expanded", "false");
+      menuToggle.setAttribute("aria-label", "Open navigation menu");
+      menuToggle.textContent = "☰";
+    });
+
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+  <script src="./studio.js"></script>
+</body>
+</html>
