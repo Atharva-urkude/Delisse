@@ -12,7 +12,7 @@ This is a separate, local version of the supplied project. The production websit
 - Tiramisu intro animation, percentage and coffee-and-milk progress bar.
 - Optional, locally synthesised ambient music, enabled only by a visitor action.
 - Structured address fields, six-digit PIN validation and an address preview.
-- Original WhatsApp enquiry flow, serving sizes, descriptions and prices.
+- WhatsApp enquiry flow with serving sizes, descriptions and price-on-request messaging.
 - Non-personal bag persistence; delivery details are not saved to local storage.
 - Reduced-motion support, keyboard navigation, Escape dismissal and native form validation.
 
